@@ -1,0 +1,13 @@
+button.Button--secondary {
+    border: solid 1px #1ba5b5;
+    background-color: #1ba5b5;
+    color: white;
+    font-size: 16px;
+    width: 96%;
+    margin: 10px 2%;
+    margin-top: 30px;
+    padding: 8px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    max-width: 140px;
+}

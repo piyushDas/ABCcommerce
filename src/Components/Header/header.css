@@ -1,0 +1,30 @@
+.top-header{
+  border-bottom: 1px solid;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-header > div {
+  padding: 12px;
+}
+
+.top-header > div:first-of-type > div:first-of-type{
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.wish-list-trigger {
+  cursor: pointer;
+  height: 70px;
+  line-height: 46px;
+}
+
+.wish-list-trigger:hover + .wish-list  {
+  display: block;
+}

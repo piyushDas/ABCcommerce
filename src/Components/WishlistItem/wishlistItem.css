@@ -1,0 +1,19 @@
+.wish-list-item {
+    border-bottom: 1px solid #ccc;
+}
+
+.wish-list-item > .product-title {
+    font-size: 14px;
+    font-weight: 600;
+    /* line-height: 1.2; */
+    letter-spacing: 0.1px;
+    color: #252525;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    overflow: hidden;
+    width: 100%;
+    /* padding-right: 10px; */
+    max-width: 350px;
+}

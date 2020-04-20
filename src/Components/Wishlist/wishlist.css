@@ -1,0 +1,14 @@
+.wish-list {
+    position: fixed;
+    top: 0;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
+    z-index: 5;
+    top: 70px;
+    right: 0px;
+    display: none;
+}
+
+.wish-list-item img {
+    height: 72px;
+}
