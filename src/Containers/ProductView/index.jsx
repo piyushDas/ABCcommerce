@@ -15,7 +15,8 @@ const ProductView = () => {
     showScrollToTop,
     updateScrollToTop,
     isMobileDevice,
-    wishList
+    wishList,
+    categories
   } = useContext(AppContext)
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const ProductView = () => {
         searchFunc={fetchSearchResults}
         pageSize={pageData.pageSize}
         pageNumber={pageData.pageNumber}
+        optionsData={categories}
       />
       <SearchList searchResults={searchResults} componentClassName="desktop-container" />
       <ScrollToTop toggler={updateScrollToTop} visibility={showScrollToTop} />

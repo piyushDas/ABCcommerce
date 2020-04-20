@@ -4,6 +4,7 @@ import './header.css'
 
 const Header = ({
   componentClassName,
+  wishlist,
   width
 }) => {
   return (
@@ -20,7 +21,7 @@ const Header = ({
         <div className="wish-list-trigger">
           Wishlist
         </div>
-        <Wishlist />
+        <Wishlist results={wishlist} />
       </div>
     </>
   )

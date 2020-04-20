@@ -23,6 +23,7 @@ export const AppState = ({ children }) => {
   const [pageLoader, setPageLoader] = useState(false)
   const [uploadComplete, setUploadComplete] = useState(false)
   const [wishList, updateWishlist] = useState([])
+  const [categories, setCategories] = useState([])
   const urlPrefix = 'http://localhost:3012'
   
   const [isMobileDevice, updateMobileDeviceFlag] = useState(false)
@@ -50,13 +51,14 @@ export const AppState = ({ children }) => {
       })
   }
   
-  const fetchSearchResults = (size, pageNo, str) => {
+  const fetchSearchResults = (size, pageNo, str, filterStr) => {
     updateTestVar("updated")
     const apiUrl = `${urlPrefix}/abcComm_v1/fetchAllproducts`
     const params = {
       pageSize: size,
       pageNumber: pageNo,
-      searchStr: str
+      searchStr: str,
+      filter: filterStr
     }
     if (!str && typeof str === 'string') {
       params.pageNumber = 0
@@ -73,6 +75,7 @@ export const AppState = ({ children }) => {
           params.lastPage = res.data.lastPageNumber
           delete params.searchStr
           updatePageData(params)
+          setCategories(res.data.categoryFilters)
           let updatedSearchListState = [...res.data.paginatedData]
           if (!str && typeof str === 'string') {
             updatedSearchListState = [...res.data.paginatedData]
@@ -104,7 +107,8 @@ export const AppState = ({ children }) => {
         pageLoader,
         uploadComplete,
         wishList,
-        updateWishlist
+        updateWishlist,
+        categories
       }}
     >
       {children}

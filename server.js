@@ -20,22 +20,12 @@ app.use(bodyParser.json())
 const dataSet = [];
 const categoryFilters = []
 let JSONHeaders = []
-// const createJSONObj = () => {
-//     const headers = dataSet[0]
-//     for (let index = 1; index < dataSet.length; index++) {
-//       const obj = {}
-//       for (let key = 0; index < headers.length; index++) {
-//         obj[headers[key]] = dataSet[index][key]
-//       }
-//       responseDataSet.push(obj)
-//     }
-// }
 
 /*
   Versioned API - to fetch search results for list page
 */
 app.get('/abcComm_v1/fetchAllproducts', (req, res) => {
-  let {pageSize, pageNumber, searchStr} = req.query
+  let {pageSize, pageNumber, searchStr, filter} = req.query
   pageSize = parseInt(pageSize)
   pageNumber = parseInt(pageNumber)
   let index = 0
@@ -53,6 +43,14 @@ app.get('/abcComm_v1/fetchAllproducts', (req, res) => {
     lastPageNumber = Math.ceil(len/pageSize) - 1
   }
 
+  const categoriesSelected = filter ? filter.split(',') : []
+
+  if (categoriesSelected.length) {
+    paginatedData = dataSet.filter(el => {
+      return categoriesSelected.indexOf(el['category']) > -1
+    })
+  }
+
   const updatedResponse = {
     type: 'available',
     paginatedData,
@@ -68,31 +66,8 @@ app.get('/abcComm_v1/fetchAllproducts', (req, res) => {
   res.json(updatedResponse)
 })
 
-// app.listen(port, () => console.log(`ABCcommerce app listening on port ${port}!`))
-
-
-// router.post('/abcComm_v1/uploadCSV', upload.single('file'), function (req, res) {
-//   const fileRows = [];
-
-//   // open uploaded file
-//   csv.fromPath(req.file.path)
-//     .on("data", function (data) {
-//       fileRows.push(data); // push each row
-//     })
-//     .on("end", function () {
-//       console.log(fileRows)
-//       fs.unlinkSync(req.file.path);   // remove temp file
-//       //process "fileRows" and respond
-//     })
-//     res.json({status: "success"})
-// })
-
-// app.use('/upload-csv', router);
-
 const keysArr = ['_id', 'image', 'name', 'currency_symbol', 'url', 'price', 'avlble', 'category', 'collection', 'full_description', 'description']
 app.post('/abcComm_v1/uploadCSV', upload.single('csv'), function(req, res, next) {
-  // req.file is the `uploadCsv` file 
-  // req.body will hold the text fields, if there were any 
   JSONHeaders.length = 0
   dataSet.length = 0
   console.log(req.file)
@@ -110,7 +85,9 @@ app.post('/abcComm_v1/uploadCSV', upload.single('csv'), function(req, res, next)
         }
         if (Number.isFinite(parseInt(obj['avlble'])) && parseInt(obj['avlble']) > 0) {
           dataSet.push(obj)
-          categoryFilters.push(obj['category'])
+          if (obj['category'] && categoryFilters.indexOf(obj['category']) < 0) {
+            categoryFilters.push(obj['category'])
+          }
         }
 
       } // push each row
@@ -118,7 +95,6 @@ app.post('/abcComm_v1/uploadCSV', upload.single('csv'), function(req, res, next)
     .on("end", function () {
       console.log(dataSet)
       fs.unlinkSync(req.file.path);   // remove temp file
-      //process "fileRows" and respond
       res.json({status: "success"})
     })
 });
@@ -126,7 +102,7 @@ app.post('/abcComm_v1/uploadCSV', upload.single('csv'), function(req, res, next)
 // Start server
 function startServer() {
   app.listen(port, function () {
-    console.log('Express server listening on ', port);
+    console.log('ABCcommerce server listening on ', port);
   });
 }
 

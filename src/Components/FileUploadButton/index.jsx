@@ -8,6 +8,7 @@ import './file.css'
 const FileUploadButton = () => {
   const {
     uploadSelectedCSV,
+    apiError
   } = useContext(AppContext)
 
   const [selectedFile, setSelectedFile] = useState({
@@ -47,12 +48,12 @@ const FileUploadButton = () => {
           Upload
         </button>
       </div>
-      {/* <If condition={apiError}>
-        <div className="mt-20 bg-darker-gray c-white pl-20 pr-20 pb-10 pt-10 lh-copy">
-          {apiErrorMessage}
+       { apiError &&
+        <div className="error-message">
+          * File upload failed. Please choose a valid CSV and try again.
         </div>
-      </If>
-
+      }
+      {/*
       <If condition={pageLoader}>
         <PageLoader
           title="Uploading your file"

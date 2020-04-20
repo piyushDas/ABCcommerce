@@ -43,7 +43,7 @@
   flex-wrap: wrap;
   list-style: none;
   position: relative;
-  top: 150px;
+  top: 206px;
 }
 
 .search-list-item {
@@ -59,4 +59,28 @@
 .search-list-item:hover{
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 50px;
   z-index: 1;
+}
+
+.filter {
+  display: flex;
+  padding: 12px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter > div:first-of-type {
+  color: #999;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.filter select {
+  height: 32px;
+  max-width: 300px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid;
+  font-size: 14px;
+  margin-left: 8px;
 }
